@@ -10,6 +10,10 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <h3 class="cart-text"><%= render 'layouts/cart_text' %></h3>
+      <hr>
+      <%= yield %>
+    </div>
   </body>
 </html>
