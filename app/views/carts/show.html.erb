@@ -1,11 +1,30 @@
-<% if @order_items.any? %>
-  <% @order_items.each do |item| %>
-  <p><%= item.product.name %> | <%= link_to "Delete", order_item_path(item), method: :delete, data: { confirm: "Are you sure?" } %></p>
-  <p>Unit Price: <%= number_to_currency item.product.price %> | Quantity: <%= item.quantity %> | Total Price: <%= number_to_currency (item.product.price * item.quantity) %></p>
-  <% end %>
-  <p>Your Total: <%= number_to_currency current_order.total_price %></p>
+<% if cart.size == 0 %>
+  <h3>Your cart is empty.</h3>
+  <p><%= link_to "Click here to Home Page", root_path %></p>
 <% else %>
-  <p>Your shopping cart is empty.</p> 
+  <h3>My Cart</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_total = 0 %>
+      <% cart.each do |product_id, details| %>
+        <%= render "item", product_id: product_id, details: details %>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Total:</th>
+        <th><%= @cart_total %></th>
+      </tr>
+    </tfoot>
+  </table>
 <% end %>
-
+<br>
 <%= link_to "Product Page", products_path %>

@@ -71,4 +71,15 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:order_number, :order_date, :total_price)
     end
+
+    def cart_total
+      total = 0
+      cart.each do |product_id, details|
+        if p = Product.find(:product_id)
+          total += p.price * details["quantity"].to_i
+        end
+      end
+      total
+    end
+    
 end

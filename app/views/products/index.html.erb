@@ -1,16 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Products</h1>
-
 <% @products.each do |product| %>
-  <p><%= product.name %> | <%= number_to_currency product.price %>
-    <%= form_with model: @order_item do |f| %>
-      <%= f.hidden_field :product_id, value: product.id %>
-      <%= f.number_field :quantity %>
-      <%= f.submit "Add to cart" %>
-    <% end %></p>
+  <p><%= product.name %> | <%= number_to_currency product.price %></p>
+  <%= link_to add_item_cart_path(product_id: product.id), class: "btn btn-primary", method: :put do %>
+    <%= fa_icon "shopping-cart", text: "Add to Cart" %>
+  <% end %>
 <% end %>
 
-<br>
+<hr>
 
 <%= link_to 'New Product', new_product_path %>
