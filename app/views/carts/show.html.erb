@@ -27,4 +27,8 @@
   </table>
 <% end %>
 <br>
+<%= form_with scope: :order, url: orders_path do |f| %>
+  <%= f.submit "Confirm Order" %>
+<% end %>
+<br>
 <%= link_to "Product Page", products_path %>

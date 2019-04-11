@@ -24,16 +24,13 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
+    order = create_order
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if order.valid?
+      empty_cart!
+      redirect_to products_path, notice: "Your order has been placed."
+    else
+      redirect_to cart_path, flash: { error: order.errors.full_messages.first }
     end
   end
 
@@ -80,6 +77,26 @@ class OrdersController < ApplicationController
         end
       end
       total
+    end
+    
+    def create_order
+      order = Order.new
+      cart.each do |product_id, details|
+        if product = Product.find_by(id: product_id)
+          quantity = details['quantity'].to_i
+          order.order_items.new(
+            product: product,
+            quantity: quantity,
+            unit_price: product.price
+          )
+        end
+      end
+      order.save!
+      order
+    end
+
+    def empty_cart!
+      update_cart({})
     end
     
 end
