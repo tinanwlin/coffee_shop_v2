@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "products#index"
+  
   resources :products
   resources :orders
   resources :order_items
@@ -7,5 +9,9 @@ Rails.application.routes.draw do
     delete :remove_item
   end
   
-  root "products#index"
+  get "/signup" => "users#new"
+  post "/users" => "users#create"
+  get "/login" => "sessions#new"
+  post "/login" => "sessions#create"
+  get "/logout" => "sessions#destroy"
 end

@@ -1,8 +1,6 @@
 class OrderItemsController < ApplicationController
   def create
-    logger.debug "ORDER controller"
     @order = current_order
-    logger.debug @order
     @item = @order.order_items.new(item_params)
     @order.save
     session[:order_id] = @order.id

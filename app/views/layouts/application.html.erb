@@ -11,8 +11,16 @@
 
   <body>
     <div class="container">
-      <h3 class="cart-text"><%= render 'layouts/cart_text' %></h3>
+      <% if current_user %>
+        Hi, <%= current_user.name %>! | <%= link_to "Log Out", "/logout" %>
+        <h3 class="cart-text"><%= render 'layouts/cart_text' %></h3>
+      <% else %>
+        <%= link_to "Log In", "/login" %> | <%= link_to "Sign up", "/signup" %>
+      <% end %>
       <hr>
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
       <%= yield %>
     </div>
   </body>
