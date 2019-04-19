@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "products#index"
+  root "sessions#new"
   
   resources :products
   resources :orders

@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   
   def create
     user = User.find_by_email(params[:email].downcase)
-    if user && user.authenticate(params[:password])
+    if user = User.authenticate_with_credentials(params[:email], params[:password])
       session[:user_id] = user.id
       flash[:success] = "Logged in!"
       redirect_to products_path
