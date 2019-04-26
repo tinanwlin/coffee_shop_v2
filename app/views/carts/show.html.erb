@@ -1,8 +1,10 @@
 <% if cart.size == 0 %>
   <h3>Your cart is empty.</h3>
-  <p><%= link_to "Click here to Home Page", root_path %></p>
+  <p><%= link_to "Click here to Home Page", products_path %></p>
 <% else %>
-  <h3>My Cart</h3>
+  <h3>
+    My Cart <%= link_to "Empty Cart", cart_path, method: :delete, class: "btn btn-default btn-danger" %>
+  </h3>
   <table class="table table-bordered"``>
     <thead>
       <tr>

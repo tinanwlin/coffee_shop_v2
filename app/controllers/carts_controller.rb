@@ -26,5 +26,10 @@ class CartsController < ApplicationController
 
     redirect_back fallback_location: root_path
   end
+
+  def destroy
+    cookies[:cart] = nil
+    redirect_to cart_path
+  end
   
 end
